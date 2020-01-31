@@ -4,6 +4,7 @@ package kz.pj.blog.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,6 +18,14 @@ public class Blog {
     private String title;
     private String description;
     private String content;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "blog_tag",
+            joinColumns = {@JoinColumn(name = "blog_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+    )
+    private List<Tag> tagList;
 
     public Blog() {
     }
